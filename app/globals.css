@@ -1,5 +1,4 @@
-@import 'tailwindcss';
-
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -54,12 +53,13 @@
   --color-green-300: var(--green-300);
   --color-red-500: var(--red-500);
   --color-yellow-500: var(--yellow-500);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -89,6 +89,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
 }
 
 .dark {
@@ -946,24 +948,33 @@
 }
 
 /* Table Custom Scrollbar */
-.custom-scrollbar [data-slot='table-container'] {
+.custom-scrollbar [data-slot="table-container"] {
   overflow-y: auto;
 }
 
-.custom-scrollbar [data-slot='table-container']::-webkit-scrollbar {
+.custom-scrollbar [data-slot="table-container"]::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 
-.custom-scrollbar [data-slot='table-container']::-webkit-scrollbar-track {
+.custom-scrollbar [data-slot="table-container"]::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.custom-scrollbar [data-slot='table-container']::-webkit-scrollbar-thumb {
+.custom-scrollbar [data-slot="table-container"]::-webkit-scrollbar-thumb {
   background: #1e2833;
   border-radius: 8px;
 }
 
-.custom-scrollbar [data-slot='table-container']::-webkit-scrollbar-thumb:hover {
+.custom-scrollbar [data-slot="table-container"]::-webkit-scrollbar-thumb:hover {
   background: #171a34;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
