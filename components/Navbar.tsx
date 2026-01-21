@@ -3,14 +3,17 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useGlobalSearch } from "./GlobalSearchProvider";
 
 const Navbar = () => {
   const pathName = usePathname();
+  const { openSearch } = useGlobalSearch();
+
   return (
     <header>
       <div className="main-container inner">
         <Link href="/">
-          <Image src="/logo.svg" alt="CryptoPulse Logo" width={132} height={40} />
+          <Image src="/logo.png" alt="CryptoPulse Logo" width={132} height={40} />
         </Link>
 
         <nav>
@@ -24,7 +27,12 @@ const Navbar = () => {
             Home
           </Link>
 
-          <p>Search Modal</p>
+          <button onClick={openSearch} className="nav-link search-button">
+            <span>Search</span>
+            <kbd className="search-kbd">
+              <span className="text-xs">⌘K</span>
+            </kbd>
+          </button>
 
           <Link
             href="/coins"

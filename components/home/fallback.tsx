@@ -1,4 +1,4 @@
-import DataTable from "@/components/ui/DataTable";
+import DataTable from "@/components/DataTable";
 import React from "react";
 
 export const CoinOverviewFallback = () => {
@@ -71,6 +71,68 @@ export const TrendingCoinsFallback = () => {
         tableClassName="trending-coins-table"
         headerCellClassName="py-3!"
         bodyCellClassName="py-2!"
+      />
+    </div>
+  );
+};
+
+export const CategoriesFallback = () => {
+  const skeletonData = Array.from({ length: 10 }, (_, i) => ({
+    id: `skeleton-${i}`,
+    name: "",
+    market_cap: 0,
+    market_cap_change_24h: 0,
+    volume_24h: 0,
+    top_3_coins: ["", "", ""],
+  }));
+
+  const columns: DataTableColumn<Category>[] = [
+    {
+      header: "Category",
+      cellClassName: "category-cell",
+      cell: () => <div className="category-skeleton skeleton"></div>,
+    },
+    {
+      header: "Top Gainers",
+      cellClassName: "top-gainers-cell",
+      cell: () => (
+        <>
+          <div className="coin-skeleton skeleton"></div>
+          <div className="coin-skeleton skeleton"></div>
+          <div className="coin-skeleton skeleton"></div>
+        </>
+      ),
+    },
+    {
+      header: "24h Change",
+      cellClassName: "change-cell",
+      cell: () => (
+        <>
+          <div className="value-skeleton-md skeleton"></div>
+          <div className="change-icon skeleton"></div>
+        </>
+      ),
+    },
+    {
+      header: "Market Cap",
+      cellClassName: "market-cap-cell",
+      cell: () => <div className="value-skeleton-lg skeleton"></div>,
+    },
+    {
+      header: "24h Volume",
+      cellClassName: "volume-cell",
+      cell: () => <div className="value-skeleton-lg skeleton"></div>,
+    },
+  ];
+
+  return (
+    <div id="categories-fallback">
+      <h4>Top Categories</h4>
+      <DataTable
+        columns={columns}
+        data={skeletonData}
+        rowKey={(_, index) => index}
+        tableClassName="mt-3"
       />
     </div>
   );
