@@ -30,7 +30,7 @@ type BinanceKline = [
   number, // Number of trades
   string, // Taker buy base asset volume
   string, // Taker buy quote asset volume
-  string  // Unused field
+  string, // Unused field
 ];
 
 // Map periods to Binance intervals
@@ -105,7 +105,7 @@ export default function TokenChart({ symbol, height = 400, children }: Props) {
       }
 
       const response = await fetch(
-        `/api/binance/klines?symbol=${pair}&interval=${interval}&limit=${limit}`
+        `https://api.binance.com/api/v3/klines?symbol=${pair}&interval=${interval}&limit=${limit}`
       );
 
       if (!response.ok) {

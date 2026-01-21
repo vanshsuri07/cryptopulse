@@ -12,8 +12,9 @@ const Navbar = () => {
   return (
     <header>
       <div className="main-container inner">
-        <Link href="/">
-          <Image src="/logo.png" alt="CryptoPulse Logo" width={132} height={40} />
+        <Link href="/" className="flex gap-2">
+          <Image src="/logo.png" alt="CryptoPulse Logo" width={60} height={40} />
+          <p className="pt-2 text-2xl font-bold">CryptoPulse</p>
         </Link>
 
         <nav>
