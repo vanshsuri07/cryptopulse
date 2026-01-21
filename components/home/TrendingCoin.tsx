@@ -1,14 +1,14 @@
 import { fetcher } from "@/lib/coingecko.actions";
-import { cn } from "@/lib/utils";
-import { TrendingDown, TrendingUp } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import DataTable from "../ui/DataTable";
+import Image from "next/image";
+import { cn, formatCurrency, formatPercentage } from "@/lib/utils";
+import { TrendingDown, TrendingUp } from "lucide-react";
+import DataTable from "@/components/DataTable";
 import { TrendingCoinsFallback } from "./fallback";
 
-const TrendingCoin = async () => {
+const TrendingCoins = async () => {
   let trendingCoins;
+
   try {
     trendingCoins = await fetcher<{ coins: TrendingCoin[] }>("/search/trending", undefined, 300);
   } catch (error) {
@@ -22,6 +22,7 @@ const TrendingCoin = async () => {
       cellClassName: "name-cell",
       cell: (coin) => {
         const item = coin.item;
+
         return (
           <Link href={`/coins/${item.id}`}>
             <Image src={item.large} alt={item.name} width={36} height={36} />
@@ -32,19 +33,20 @@ const TrendingCoin = async () => {
     },
     {
       header: "24h Change",
-      cellClassName: "name-cell",
+      cellClassName: "change-cell",
       cell: (coin) => {
         const item = coin.item;
         const isTrendingUp = item.data.price_change_percentage_24h.usd > 0;
+
         return (
           <div className={cn("price-change", isTrendingUp ? "text-green-500" : "text-red-500")}>
-            <p>
+            <p className="flex items-center">
+              {formatPercentage(item.data.price_change_percentage_24h.usd)}
               {isTrendingUp ? (
                 <TrendingUp width={16} height={16} />
               ) : (
                 <TrendingDown width={16} height={16} />
               )}
-              {Math.abs(item.data.price_change_percentage_24h.usd).toFixed(2)}%
             </p>
           </div>
         );
@@ -53,9 +55,10 @@ const TrendingCoin = async () => {
     {
       header: "Price",
       cellClassName: "price-cell",
-      cell: (coin) => coin.item.data.price,
+      cell: (coin) => formatCurrency(coin.item.data.price),
     },
   ];
+
   return (
     <div id="trending-coins">
       <h4>Trending Coins</h4>
@@ -72,4 +75,4 @@ const TrendingCoin = async () => {
   );
 };
 
-export default TrendingCoin;
+export default TrendingCoins;
