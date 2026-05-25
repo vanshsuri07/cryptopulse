@@ -43,6 +43,8 @@ Create a `.env.local` file:
 ```bash
 COINGECKO_BASE_URL=https://api.coingecko.com/api/v3
 COINGECKO_API_KEY=your_api_key_here
+
+NEXT_PUBLIC_COINGECKO_API_KEY=your_api_key_here
 NEXT_PUBLIC_COINGECKO_WEBSOCKET_URL=wss://stream.coingecko.com/v1
 ```
 
